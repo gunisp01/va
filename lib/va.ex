@@ -16,7 +16,7 @@ defmodule Va do
             name: ~x"./service/@name",
             version: ~x"./service/@version",
             # script: ~x"./script/@id"l,
-            # output: ~x"./script/@output"l
+            output: ~x"./script/@output"l
           ]
         ]
       )
@@ -24,8 +24,14 @@ defmodule Va do
     list.hosts
   end
 
-  def pretty_print(data) do
-    [map] = data
-    Scribe.print(map[:ports], data: [:id, :name, :product, :version, {:hostname, fn _ -> map[:hostname] end}, {:ip, fn _ -> map[:ip] end}])
+  def pretty_print(hosts) do
+    [data] = hosts
+
+    IO.puts("Hosts")
+    Scribe.print(data, data: [:hostname, :ip])
+
+    IO.puts("Open Ports")
+    Enum.filter(data.ports, fn %{output: output} -> output == [] end) |> Enum.map(fn x -> Map.delete(x, :output) end) |> Scribe.print()
+
   end
 end
