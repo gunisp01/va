@@ -11,12 +11,14 @@ defmodule Va do
           hostname: ~x"./hostnames/hostname/@name",
           ports: [
             ~x"//port"l,
-            id: ~x"./@portid",
+            port: ~x"./@portid",
             product: ~x"./service/@product",
             name: ~x"./service/@name",
             version: ~x"./service/@version",
             # script: ~x"./script/@id"l,
-            output: ~x"./script/@output"l
+            output: ~x"./script/@output"l,
+            state: ~x"./state/@state"
+
           ]
         ]
       )
