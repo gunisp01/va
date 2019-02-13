@@ -47,9 +47,7 @@ defmodule Va do
 
     List.to_string(tl(output))
     |> String.split("\n")
-    |> List.delete_at(0)
-    |> List.delete_at(0)
-    |> List.delete_at(0)
+    |> Enum.drop(3)
     |> List.to_string
     |> String.split("\t")
     |> Enum.filter(fn x -> x != "" end)
