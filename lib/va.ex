@@ -7,17 +7,17 @@ defmodule Va do
       |> xmap(
         hosts: [
           ~x"//host"l,
-          ip: ~x"./address/@addr",
-          hostname: ~x"./hostnames/hostname/@name",
+          ip: ~x"./address/@addr"s,
+          hostname: ~x"./hostnames/hostname/@name"s,
           ports: [
             ~x"//port"l,
-            port: ~x"./@portid",
-            product: ~x"./service/@product",
-            name: ~x"./service/@name",
-            version: ~x"./service/@version",
+            port: ~x"./@portid"i,
+            product: ~x"./service/@product"s,
+            name: ~x"./service/@name"s,
+            version: ~x"./service/@version"s,
             # script: ~x"./script/@id"l,
             output: ~x"./script/@output"l,
-            state: ~x"./state/@state"
+            state: ~x"./state/@state"s
 
           ]
         ]
@@ -35,6 +35,7 @@ defmodule Va do
     IO.puts("Open Ports")
     data.ports
     |> Enum.filter(fn %{output: output} -> output == [] end)
+    |> Enum.map(fn x -> Map.delete(x, :output) end)
     |> Scribe.print()
 
     IO.puts("Vulnerabilities")
