@@ -54,7 +54,7 @@ defmodule Va do
     |> String.split("\t")
     |> Enum.filter(fn x -> x != "" end)
     |> Enum.chunk_every(3)
-    |> Enum.map(fn [cve, cvs, link] -> %{cve: cve, cvs: cvs, link: link} end)
+    |> Enum.map(fn [cve, cvs, link] -> %{cve: cve, cvs: String.to_float(cvs), link: link} end)
     |> Scribe.print()
   end
 end
